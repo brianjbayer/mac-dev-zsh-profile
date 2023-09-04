@@ -5,8 +5,6 @@ for (Ruby/Rails, Node) development.
 
 * Assumes and enables...
   * Homebrew
-  * Ruby
-  * [rbenv](https://github.com/rbenv/rbenv) (commented out)
   * [nvm](https://github.com/nvm-sh/nvm) (commented out)
 
 ---
