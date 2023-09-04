@@ -2,10 +2,6 @@
 # Z shell for MacOS profile
 # ----------------------------------
 
-#-- ENV --
-# For RUBY
-# export RUBY_CONFIGURE_OPTS="--with-openssl-dir=$(brew --prefix openssl@1.1)"
-
 #-- HOMEBREW --
 # Add Homebrew package management to shell environment
 # Add brew shellenv to your ~/.zshrc file"
@@ -16,9 +12,6 @@ eval "$(${homebrew_prefix}/bin/brew shellenv)"
 unset homebrew_prefix
 
 # -- PACKAGE MANAGERS --
-# Rbenv Ruby version manager
-# eval "$(rbenv init -)"
-
 # For Node Version Manager NVM from homebrew install instructions
 # TODO: Is this correct?
 # export NVM_DIR="$HOME/.nvm"
