@@ -1,0 +1,29 @@
+# Basic Aliases
+alias lsa='ls -al'
+alias cls='clear'
+
+# Docker Aliases
+alias docexec='docker exec'
+alias docexecit='docker exec -it'
+alias docims='docker images'
+alias docopen='open /Applications/Docker.app'
+alias docps='docker ps'
+alias docpsa='docker ps -a'
+alias docstop='docker stop'
+alias docstopall='docker stop $(docker ps -aq)'
+alias docnuke='docker system prune -af --volumes'
+
+# Git Aliases
+alias ga='git add'
+alias gaa='git add -A'
+alias gb='git branch'
+alias gc='git commit'
+alias gcamend='git commit --amend'
+alias gcm='git commit -m'
+alias gd='git diff'
+alias go='git checkout'
+alias golo='git log'
+alias gpl='git pull'
+alias gps='git push'
+alias grpo='git remote prune origin'
+alias gs='git status'
