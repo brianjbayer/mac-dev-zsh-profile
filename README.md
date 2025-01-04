@@ -36,6 +36,11 @@ directory and softlink it to `~/.zshrc`.
    ./install-mac-dev-zsh-profile
    ```
 
+   :fast_forward: To also install the default `~/.alias` file
+   ```bash
+   ./install-mac-dev-zsh-profile -a
+   ```
+
    :hammer: To force the installation and overwrite any existing files
    ```bash
    ./install-mac-dev-zsh-profile -f

@@ -1,55 +1,70 @@
 #!/usr/bin/env bash
-# -----------------------------------------------
-# Installs and softlinks user's .zshrc
-# to ~/<username>-profiles
-# -----------------------------------------------
 
 # Exit script on any errors - exits script from $(subshells)
 set -e
 
-# Get this script's name
-me=$(basename "$0")
+usage() {
+  cat << USAGE
+Usage: $(basename $0) [-afh]
+This script installs and softlinks user's .zshrc to ~/<username>-profiles.
+
+Optionally it can install and softlink a default .alias file as well.
+
+OPTIONS:
+  -a install and link .alias file
+  -f force install and overwrite existing
+  -h help
+USAGE
+}
+
+download_and_link_profile() {
+  profile_file_name=$1
+
+  source_repository=brianjbayer/mac-dev-zsh-profile
+  echo "Installing ${profile_file_name} from ${source_repository}"
+  curl --location --remote-header-name \
+    --remote-name "https://raw.githubusercontent.com/${source_repository}/main/${profile_file_name}"
+
+  # Force the softlink to the profile directory
+  # ln -s -f *source* *new-link*
+  ln -s -f "$(pwd)/${profile_file_name}" "${USER_HOME_DIRECTORY}/${profile_file_name}"
+}
 
 # Command line arguments
-while getopts 'fh' opt; do
+while getopts 'afh' opt; do
   case "$opt" in
 
+    a)
+      install_alias=1
+      ;;
+
     f)
-      force_overwrite="true"
+      force_overwrite=1
       ;;
 
     ?|h)
-      cat << EOF
-Usage: ${me} [-fh]
--f force install and overwrite existing
--h help
-EOF
+      usage
       exit
       ;;
   esac
 done
 shift "$(($OPTIND -1))"
 
-# === MAIN ---
-source_repository=mac-dev-zsh-profile
-echo "Installing .zshrc from ${source_repository}"
-
+# --- MAIN ---
 # Exit early if ~./zshrc exists unless forcing overwriting
 [[ -f ~/.zshrc && -z ${force_overwrite} ]] && (echo " ~/.zshrc exists" ; exit 2)
+# Exit early if ~./alias exists unless forcing overwriting
+[[ -n ${install_alias} && -f ~/.alias && -z ${force_overwrite} ]] && (echo " ~/.alias exists" ; exit 2)
 
 # Install to ~/<username>-profiles
-user_home_directory=$(echo ~)
-profile_dir="${user_home_directory}/$(id -un)-profiles"
+USER_HOME_DIRECTORY=$(echo ~)
+PROFILE_DIR="${USER_HOME_DIRECTORY}/$(id -un)-profiles"
 
 # Make and goto profile directory
-mkdir -p ${profile_dir}
-cd ${profile_dir}
+mkdir -p ${PROFILE_DIR}
+cd ${PROFILE_DIR}
 
+# Install the profile files
+download_and_link_profile .zshrc
 
-# Download the .zshrc file to the profile directory
-curl --location --remote-header-name \
-  --remote-name "https://raw.githubusercontent.com/brianjbayer/${source_repository}/main/.zshrc"
-
-# Force the softlink of profile directory .zshrc to ~/.zshrc
-# ln -s -f *source* *new-link*
-ln -s -f "$(pwd)/.zshrc" "${user_home_directory}/.zshrc"
+[[ -n ${install_alias} ]] && download_and_link_profile .alias
