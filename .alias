@@ -3,6 +3,8 @@ alias lsa='ls -al'
 alias cls='clear'
 
 # Docker Aliases
+alias doc='docker'
+alias docclean='docker container prune -f ; docker image prune -f ; docker volume prune -f'
 alias docexec='docker exec'
 alias docexecit='docker exec -it'
 alias docims='docker images'

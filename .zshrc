@@ -10,7 +10,7 @@
 eval "$(${homebrew_prefix}/bin/brew shellenv)"
 unset homebrew_prefix
 
-# -- PACKAGE MANAGERS --
+# -- VERSION MANAGERS --
 # Put any nvm, rbenv/rvm, etc config here
 
 # -- UTILITIES (ETC.) --
